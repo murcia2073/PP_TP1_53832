@@ -1,3 +1,4 @@
+package ej3;
 public class Sala {
 
     private int id;

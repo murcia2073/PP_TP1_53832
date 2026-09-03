@@ -1,3 +1,5 @@
+package ej2;
+
 public class Sala {
 
     private int id;

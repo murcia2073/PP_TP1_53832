@@ -1,3 +1,5 @@
+package ej2;
+
 import java.time.LocalDate;
 
 public class Inscripcion {

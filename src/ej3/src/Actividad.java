@@ -1,9 +1,9 @@
-
+package ej3;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Actividad {
+public abstract class Actividad {
 
     public static final int CUPO_MINIMO = 5;
 
@@ -37,7 +37,7 @@ public class Actividad {
 
     public Inscripcion inscribir(Estudiante estudiante) {
         if (inscripciones.size() >= cupoMaximo) {
-            System.out.println("Uy, " + titulo + " ya no tiene lugar para " + estudiante.getNombre() + ".");
+            System.out.println("Uy, " + titulo + " ya no hay lugara para el alumno " + estudiante.getNombre() + ".");
             return null;
         }
         Inscripcion inscripcion = new Inscripcion(estudiante, LocalDate.now(), "Confirmada");
@@ -50,8 +50,14 @@ public class Actividad {
             Inscripcion inscripcion = inscripciones.get(i);
             Estudiante estudiante = inscripcion.getEstudiante();
             System.out.println("Inscripcion numero " + i + ":");
-            System.out.println("Estudiante: " + estudiante.getNombre() + " de legajo: " + estudiante.getLegajo());
+            System.out.println("Alumno: " + estudiante.getNombre() + " legajo: " + estudiante.getLegajo());
         }
+    }
+
+
+    public final void mostrarIdentificacion() {
+        System.out.println("[" + getTipo() + "] ID: " + id + " - \"" + titulo
+                + "\" - Costo de materiales: $" + calcularCostoMateriales());
     }
 
     public void mostrarDatos() {
@@ -61,6 +67,12 @@ public class Actividad {
         System.out.println("Cupos restantes: " + (cupoMaximo - inscripciones.size()));
         System.out.println("Inscripciones: " + inscripciones.size());
         mostrarInscripciones();
+        mostrarIdentificacion();
         System.out.println();
     }
+
+
+    public abstract double calcularCostoMateriales();
+
+    public abstract String getTipo();
 }

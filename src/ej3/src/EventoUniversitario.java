@@ -1,3 +1,5 @@
+package ej3;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,15 +37,33 @@ public class EventoUniversitario {
         if (gratuito) {
             return 0;
         }
-        return costoBase + (actividades.size() * 500);
+        double costoActividades = 0;
+        for (Actividad actividad : actividades) {
+            costoActividades += actividad.calcularCostoMateriales();
+        }
+        return (costoBase + costoActividades) * 1.21;
     }
 
     public void asignarSala(Sala sala) {
         this.sala = sala;
     }
 
-    public void crearActividad(int id, String titulo, int cupo) {
-        actividades.add(new Actividad(id, titulo, cupo));
+    // Sobrecarga para crear una Charla: recibe el tipo ("Charla") y el disertante.
+    public void crearActividad(int id, String titulo, int cupo, String tipo, String disertante) {
+        if (!tipo.equalsIgnoreCase("Charla")) {
+            System.out.println("Tipo de actividad invalido para este metodo: " + tipo);
+            return;
+        }
+        actividades.add(new Charla(id, titulo, cupo, disertante));
+    }
+
+
+    public void crearActividad(int id, String titulo, int cupo, String tipo, boolean requiereNotebook) {
+        if (!tipo.equalsIgnoreCase("Taller")) {
+            System.out.println("Tipo de actividad invalido para este metodo: " + tipo);
+            return;
+        }
+        actividades.add(new Taller(id, titulo, cupo, requiereNotebook));
     }
 
     public String getId() {

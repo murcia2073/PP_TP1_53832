@@ -1,3 +1,4 @@
+package ej1;
 
 public class EventoUniversitario {
 
@@ -54,4 +55,3 @@ public class EventoUniversitario {
         return cantidadEventos;
     }
 }
- 

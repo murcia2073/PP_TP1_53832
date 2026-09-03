@@ -1,42 +1,45 @@
-
+package ej3;
 import java.util.ArrayList;
 import java.util.List;
 
 public class App {
-    public static Integer id = 0;
-    public static List<EventoUniversitario> eventos = new ArrayList<>();
-    public static List<Estudiante> estudiantes = new ArrayList<>();
-
     public static void main(String[] args) {
-        EventoUniversitario evento1 = new EventoUniversitario(((Integer) (eventos.size())).toString(),
-                "Eventos de la UTN", 1000.00, true);
-        EventoUniversitario evento2 = new EventoUniversitario(evento1);
 
-        Estudiante efrain = new Estudiante("5063", "Efrain Fernandez");
-        Estudiante wilson = new Estudiante("5403", "Wilson Barreto");
+        List<Estudiante> estudiantes = new ArrayList<>();
+        Estudiante efrain = new Estudiante("Efrain Fernandez", "5063");
+        Estudiante wilson = new Estudiante("Wilson Barreto", "5403");
+        Estudiante lucia = new Estudiante("Carolina Murcia", "5510");
         estudiantes.add(efrain);
         estudiantes.add(wilson);
+        estudiantes.add(lucia);
 
-        eventos.add(evento1);
-        eventos.add(evento2);
 
-        evento1.crearActividad(1, "Charla de Ciberseguridad", 60);
+        EventoUniversitario evento1 = new EventoUniversitario("1", "Semana de la Tecnologia", 1000.00, false);
+        EventoUniversitario evento2 = new EventoUniversitario(evento1); // Copia de evento1
 
-        evento2.crearActividad(3, "Charla de Linux", 60);
-       
 
-        for (Estudiante estudiante : estudiantes) {
-            for (EventoUniversitario evento : eventos) {
-                for (Actividad actividad : evento.getActividades()) {
-                    actividad.inscribir(estudiante);
-                }
-            }
+        evento1.asignarSala(new Sala(101, "Auditorio Principal"));
+        evento2.asignarSala(new Sala(205, "Laboratorio 1"));
+
+        // d. Crear actividades propias de cada evento
+        evento1.crearActividad(1, "Charla de Ciberseguridad", 60, "Charla", "Terry Davis");
+        evento1.crearActividad(2, "Taller de Python", 30, "Taller", true);
+
+
+        for (Actividad actividad : evento1.getActividades()) {
+            actividad.inscribir(efrain);
+            actividad.inscribir(wilson);
+            actividad.inscribir(lucia);
         }
 
-        for (EventoUniversitario evento : eventos) {
-            evento.mostrarDatos();
-        }
 
-        System.out.println("Cantidad de eventos: " + EventoUniversitario.getCantidadEventos());
+        System.out.println("Datps evento 1:");
+        evento1.mostrarDatos();
+
+        System.out.println("datos evento copia===");
+        evento2.mostrarDatos();
+
+
+        System.out.println("\nTotal de eventos creados: " + EventoUniversitario.getCantidadEventos());
     }
 }
